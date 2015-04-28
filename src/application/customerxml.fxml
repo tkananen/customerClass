@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="600.0" prefWidth="564.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.customerController">
+   <children>
+      <TextField fx:id="firstName" layoutX="244.0" layoutY="94.0" text="First Name" />
+      <TextField fx:id="middleInitial" layoutX="244.0" layoutY="139.0" text="Middle Initial" />
+      <TextField fx:id="lastName" layoutX="244.0" layoutY="185.0" text="Last Name" />
+      <RadioButton fx:id="female" layoutX="244.0" layoutY="258.0" mnemonicParsing="false" text="Female" />
+      <RadioButton fx:id="male" layoutX="244.0" layoutY="226.0" mnemonicParsing="false" text="Male" />
+      <TextField fx:id="address" layoutX="244.0" layoutY="292.0" text="Address" />
+      <TextField fx:id="city" layoutX="244.0" layoutY="340.0" text="City" />
+      <ComboBox fx:id="states" layoutX="244.0" layoutY="396.0" prefWidth="150.0" promptText="State" />
+      <TextField fx:id="zip" layoutX="244.0" layoutY="451.0" text="Zip" />
+      <Button fx:id="saveButton" layoutX="244.0" layoutY="511.0" mnemonicParsing="false" onAction="#handlesaveButton" text="Save" />
+      <Button fx:id="clearButton" layoutX="341.0" layoutY="511.0" mnemonicParsing="false" onAction="#handleClearButton" text="Clear" />
+   </children>
+</AnchorPane>

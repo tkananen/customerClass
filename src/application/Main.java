@@ -1,32 +1,47 @@
 package application;
 	
+import java.io.IOException;
+
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.AnchorPane;
+
 
 
 public class Main extends Application {
+	
+	
+	private Stage customerStage;
+	private AnchorPane customerAnchor;
 	@Override
-	public void start(Stage primaryStage) {
-		try {
-			FXMLLoader myLoader = new FXMLLoader();
-			
-			BorderPane root = new BorderPane();
-			Scene scene = new Scene(root,400,400);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			primaryStage.setScene(scene);
-			primaryStage.show();
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
+	public void start(Stage primaryStage){
+		this.customerStage = primaryStage;
+		this.customerStage.setTitle("Customer");
+		showcustomerAnchor();
 	}
+	
+	private void showcustomerAnchor(){
+		try{
+			FXMLLoader custLoader = new FXMLLoader();
+			custLoader.setLocation(Main.class.getResource("customerxml.fxml"));
+			customerAnchor = (AnchorPane) custLoader.load();
+			
+			Scene scene = new Scene(customerAnchor);
+			customerStage.setScene(scene);
+			customerController custControl = custLoader.getController();
+			custControl.setMain(this);
+			customerStage.show();
+		}
+		 catch(IOException e){
+				e.printStackTrace();
+			}
+	}
+		
 	
 	public static void main(String[] args) {
 		launch(args);
-	}}
-	
-	
-	
-
+	}
+}

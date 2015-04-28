@@ -1,265 +1,250 @@
 package application;
 
-import javafx.application.Application;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class customerController extends Application {
+public class customerController extends Main{
 	
-	@FXML
-	private TextField firstNameText;
+	 @FXML
+	 private TextField firstName;
+	 
+	 @FXML 
+	 private TextField middleInitial;
+	 
+	 @FXML
+	 private TextField lastName;
+	 
+	 @FXML
+	 private RadioButton male;
+	 
+	 
+	 @FXML
+	 private RadioButton female;
+	 
+	 @FXML
+	 private TextField address;
+	 
+	 @FXML
+	 private TextField city;
+	 
+	 @FXML
+	 private ComboBox<String> states;
+	 
+	 @FXML
+	 private TextField zip;
+	 
+	 @FXML
+	 private Button saveButton;
+	 
+	 @FXML
+	 private Button clearButton;
+	 
+	 @FXML
+	 private Alert checkAlert = new Alert(AlertType.ERROR);	
+	 
+	 @FXML
+	 private ToggleGroup genderButton = new ToggleGroup();
+	 
+	 @FXML
+	 private Alert confirmationAlert = new Alert(AlertType.CONFIRMATION);
+	 
 	
-	@FXML
-	private TextField lastNameText;
-	
-	@FXML
-	private TextField middleInitialText;
-	
-	@FXML
-	private TextField addressText;
-	
-	@FXML
-	private TextField cityText;
-	
+	 
+	 
+	 
+	 private Main main;
+	 
+	 customer myCustomer = new customer();
+	 
 
-	
-	@FXML
-	private TextField zipText;
-	
-	private customer myCustomer;
-	
-	@FXML
-	private Button male;
-	
-	@FXML
-	private Button female;
-	@FXML
-	private Stage myStage;
-	@FXML
-	private Button saveButton;
-
-	Button clearButton = new Button("Clear");
-	
-	private boolean clearClicked = false;
-
-	
-	
-	private Main myMain;
-
-	public customerController(){
+	 
+	 
+	 
+	 
+	 @FXML
+	 private void handleClearButton(){
+		firstName.clear();
+		middleInitial.clear();
+		lastName.clear();
+		male.setSelected(false);
+		female.setSelected(false);
+		address.clear();
+		city.clear();
+		states.setValue(null);
+		zip.clear();
+		 
+		 
+	 }
+	 
+	 @FXML
+	 private void handlesaveButton(){
+		 if (checkInput()){
+			 myCustomer.setFirstName(firstName.getText().toString());
+			 myCustomer.setMiddleInitial(middleInitial.getText().toString());
+			 myCustomer.setLastName(lastName.getText().toString());
+			 myCustomer.setAddress(address.getText().toString());
+			 myCustomer.setCity(city.getText().toString());
+			 myCustomer.setState(states.getValue().toString());
+			 myCustomer.setZip(zip.getText().toString());
 		
-	}
-	
-	
-	public boolean isclearClicked(){
-		return clearClicked;
-	}
-	
-	@FXML
-	private boolean handleClear(){
-		clearClicked = true;
-		myStage.close(); 
+			 	if(female.isPressed()){
+			 			myCustomer.setGender("Female");
+			 			}
+			 	if(male.isPressed()){
+			 			myCustomer.setGender("Male");
+			 			}
+			 	confirmationAlert.setContentText("Congraluations, everything was correct!");
+		 }
+		 
+		 
+		 
+	 }
+			 
 		
-	}
+		 
 		
-	@FXML
-	private void handleClearClick(){
-		if(handleClear()){
-
-			firstNameText.clear();
-			lastNameText.clear();
-			middleInitialText.clear();
-			addressText.clear();
-			cityText.clear();
-			zipText.clear();
+		 
+		 	
+		
+	 
+	 @FXML
+	 private boolean checkInput(){		 
+		 
+		 if ( firstName.getText().length() == 0 || firstName.getText().length() > 50){
+				checkAlert.setContentText("Your first name was incorrect.");
+				checkAlert.showAndWait();
 			}
-		}
 			
-		
-	
-	
-	
-	
-		
-		
-
-		 
-		 
-
-		@Override
-		public void start(Stage primaryStage) throws Exception {
-			// TODO Auto-generated method stub
-			
-		}
+			if(middleInitial.getText().length() == 0 || middleInitial.getText().length() > 1){
+				checkAlert.setContentText("Your middle initial was incorrect.");
+				checkAlert.showAndWait();
 				
+			
+			}
+			if (lastName.getText().length() == 0 || lastName.getText().length() > 50){
+				checkAlert.setContentText("Your last name was incorrect.");
+				checkAlert.showAndWait();
+			}
+		
+			if( female.isPressed() && male.isPressed()){
+				checkAlert.setContentText("Please only select one gender");
+				checkAlert.showAndWait();
+					
+			}		
+					
+			
+			if(zip.getText().length() == 0 || zip.getLength() != 5 || zip.getLength() != 9){
+				checkAlert.setContentText("Your zip code was incorrect");
+				checkAlert.showAndWait();
+			}
+			
+			if(address.getText().length() == 0 || address.getText().length() > 50){
+				checkAlert.setContentText("Your address was incorrect.");
+				checkAlert.showAndWait();
+			}
+			
+			if(city.getText().length()==0||city.getText().length() > 25){
+				checkAlert.setContentText("Your city was incorrect.");
+				checkAlert.showAndWait();
+				
+			}
+			
+			if(states.getValue().toString().equals(null)){
+				checkAlert.setContentText("Please select a state.");
+				checkAlert.showAndWait();
+				
+			}
+			return true;
+			
+	 }
+	 
+	
+	 
+	 
+	 @FXML
+	 private void initialize(){
+		 
+		 male.setToggleGroup(genderButton);
+		 female.setToggleGroup(genderButton);
+		 
+		
+		 
+		 states.getItems().addAll(
+				  ("Alabama"),
+				    ("Montana"),
+				    ("Alaska"),
+				    ("Nebraska"),
+				    ("Arizona"),
+				    ("Nevada"),
+				    ("Arkansas"),
+				    ("New Hampshire"),
+				    ("California"),
+				    ("New Jersey"),
+				    ("Colorado"),
+				    ("New Mexico"),
+				    ("Connecticut"),
+				    ("New York"),
+				    ("Delaware"),
+				    ("North Carolina"),
+				    ("Florida"),
+				    ("North Dakota"),
+				    ("Georgia"),
+				    ("Ohio"),
+				    ("Hawaii"),
+				    ("Oklahoma"),
+				    ("Idaho"),
+				    ("Oregon"),
+				    ("Illinois"),
+				    ("Pennsylvania"),
+				    ("Indiana"),
+				    ("Rhode Island"),
+				    ("Iowa"),
+				    ("South Carolina"),
+				    ("Kansas"),
+				    ("South Dakota"),
+				    ("Kentucky"),
+				    ("Tennessee"),
+				    ("Louisiana"),
+				    ("Texas"),
+				    ("Maine"),
+				    ("Utah"),
+				    ("Maryland"),
+				    ("Vermont"),
+				    ("Massachusetts"),
+				    ("Virginia"),
+				    ("Michigan"),
+				    ("Washington"),
+				    ("Minnesota"),
+				    ("West Virginia"),
+				    ("Mississippi"),
+				    ("Wisconsin"),
+				    ("Missouri"),
+				    ("Wyoming"));
+		 
+		 
+	 }
+	 
+	 
+	 public void setMain(Main main){
+		 this.main = main;
+				 
+	 }
 		
 
 
 
 	
-	}
+
 
 	
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-//	@FXML
-//	private void initialize(){
-//		
-//	}
-//	
-//	public void setmyStage (Stage myStage){
-//		this.myStage = myStage;
-//	}
-//	
-//	
-////	saveButton.setOnAction(new EventHandler<ActionEvent>()){
-////		public void handle(final ActionEvent e){
-////			
-////			
-////		}
-////		
-////		
-////	}
-//	
-//	final ComboBox stateBox = new ComboBox();		
-//			
-//			
-//	
-//	public void setmyCustomer(customer myCustomer){
-//		this.myCustomer = myCustomer;
-//		
-//		firstNameText.setText(myCustomer.getfirstName());
-//		middleInitialText.setText(myCustomer.getmiddleInitial());
-//		lastNameText.setText(myCustomer.getlastName());
-//		addressText.setText(myCustomer.getaddress());
-//		cityText.setText(myCustomer.getcity());
-//		stateText.setText(myCustomer.getstate());
-//		zipText.setText(myCustomer.getzip());
-//		
-//		
-//	}
-//	
-//	public boolean saveClick(){
-//		return saveClick;
-//	}
-//	
-//	@FXML
-//	
-//	private void correctTextFields(){
-//	
-//		String outputMessage = "You input was incorrect for: ";
-//		
-//		
-//		if (firstNameText.getText() == null || firstNameText.getText().length() == 0 || firstNameText.getText().length() > 50){
-//			outputMessage += "First Name\n";
-//		}
-//		
-//		if(middleInitialText.getText() == null || middleInitialText.getText().length() > 1){
-//			outputMessage += "Middle Initial\n";
-//		}
-//		if (lastNameText.getText() == null || lastNameText.getText().length() == 0 || lastNameText.getText().length() > 50){
-//			outputMessage += "Last Name\n";
-//		}
-////		
-////		if( female.getOnAction() = null){
-////			
-////		}
-//		if(addressText.getText() == null || addressText.getText().length() == 0 || addressText.getText().length() > 50){
-//			outputMessage += "Address\n";
-//		}
-//		
-//		if(cityText.getText() == null||cityText.getText().length()==0||cityText.getText().length() > 25){
-//			outputMessage += "City\n";
-//		}
-//		
-//		if(stateBox != null){
-//			outputMessage += "State Selection\n";
-//		}
-//		
-//		
-//	}
-//	
-//	
-//	
-//	
-//	
-//	
-//	
-//	
-//	
-//
-//	public void setMainApp(Main main) {
-//		// TODO Auto-generated method stub
-//		
-//	}
-//	
-//	
-//	public void setMain()
-	
-}
+

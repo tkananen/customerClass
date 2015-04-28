@@ -2,18 +2,25 @@ package application;
 
 public class customer {
 	
-	private final String firstName;
-	private final String middleInitial;
-	private final String lastName;
-	private final String address;
-	private final String city;
-	private final String state;
-	private final String zip;
+	private String firstName;
+	private  String middleInitial;
+	private  String lastName;
+	private  String address;
+	private  String city;
+	private  String state;
+	private  String  zip;
+	private String gender;
 	
 	
 	
 	
-	public customer(String firstName, String middleInitial, String lastName, String address, String city, String state, String zip){
+	
+	public customer(){
+		
+	}
+	
+
+	public customer(String firstName, String middleInitial, String lastName, String address, String city, String state, String zip, String gender){
 		this.firstName = new String(firstName);
 		this.middleInitial = new String(middleInitial);
 		this.lastName = new String(middleInitial);
@@ -21,35 +28,91 @@ public class customer {
 		this.city = new String(city);
 		this.state = new String(state);
 		this.zip = new String(zip);
+		this.gender = new String(gender);
+	
+	}
+	
+	
+	public String getGender(){
+		return gender;
 	}
 
-	public String getfirstName() {
+	public void setGender(String gender){
+		this.gender = gender;
+	}
+
+	public String getFirstName() {
 		return firstName;
 	}
 
-	public String getmiddleInitial() {
+
+	public String getMiddleInitial() {
 		return middleInitial;
 	}
 
-	public String getlastName() {
+
+	public String getLastName() {
 		return lastName;
 	}
 
-	public String getaddress() {
+
+	public String getAddress() {
 		return address;
 	}
 
-	public String getcity() {
+
+	public String getCity() {
 		return city;
 	}
 
-	public String getstate() {
+
+	public String getState() {
 		return state;
 	}
 
-	public String getzip() {
+
+	public String getZip() {
 		return zip;
 	}
+
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+
+	public void setMiddleInitial(String middleInitial) {
+		this.middleInitial = middleInitial;
+	}
+
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+
+	public void setZip(String zip) {
+		this.zip = zip;
+	}
+
+
+	
+	
 	
 
 	
